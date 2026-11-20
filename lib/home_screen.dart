@@ -136,7 +136,6 @@ class _HomeContent extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 16),
 
             SizedBox(
@@ -173,54 +172,58 @@ class _HomeContent extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 16),
 
-            Container(
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                color: const Color(0xFF17171D),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Row(
-                children: [
-                  CircleAvatar(
-                    radius: 28,
-                    backgroundColor: Color(0xFFFF375F),
-                    child: Icon(
-                      Icons.play_arrow,
-                      color: Colors.white,
-                      size: 30,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/player');
+              },
+              child: Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF17171D),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 28,
+                      backgroundColor: Color(0xFFFF375F),
+                      child: Icon(
+                        Icons.play_arrow,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 15),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'VYBE Daily Mix',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
+                    SizedBox(width: 15),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'VYBE Daily Mix',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Your personalized music',
-                          style: TextStyle(
-                            color: Colors.white54,
+                          SizedBox(height: 4),
+                          Text(
+                            'Your personalized music',
+                            style: TextStyle(
+                              color: Colors.white54,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Colors.white54,
-                  ),
-                ],
+                    Icon(
+                      Icons.chevron_right,
+                      color: Colors.white54,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
