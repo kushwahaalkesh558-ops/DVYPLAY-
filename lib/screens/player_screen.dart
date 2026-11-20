@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class PlayerScreen extends StatelessWidget {
+class PlayerScreen extends StatefulWidget {
   const PlayerScreen({super.key});
+
+  @override
+  State<PlayerScreen> createState() => _PlayerScreenState();
+}
+
+class _PlayerScreenState extends State<PlayerScreen> {
+  bool isPlaying = false;
+  bool isFavorite = false;
+  double progress = 0.35;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +54,13 @@ class PlayerScreen extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 35),
+              const SizedBox(height: 25),
 
               Container(
                 width: double.infinity,
-                height: 330,
+                height: 300,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(28),
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -70,53 +79,145 @@ class PlayerScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Icon(
-                    Icons.music_note,
+                    Icons.music_note_rounded,
                     color: Colors.white,
-                    size: 100,
+                    size: 110,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 35),
+              const SizedBox(height: 25),
 
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Midnight Dreams',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Midnight Dreams',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          'DVYPLAY • Artist',
+                          style: TextStyle(
+                            color: Colors.white54,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isFavorite = !isFavorite;
+                      });
+                    },
+                    icon: Icon(
+                      isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: isFavorite
+                          ? const Color(0xFFFF375F)
+                          : Colors.white70,
+                      size: 27,
+                    ),
+                  ),
+                ],
               ),
 
-              const SizedBox(height: 7),
+              const SizedBox(height: 15),
 
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'DVYPLAY • Artist',
-                  style: TextStyle(
-                    color: Colors.white54,
-                    fontSize: 15,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF202027),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.graphic_eq,
+                          color: Color(0xFF00E5A8),
+                          size: 16,
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          'LOSSLESS',
+                          style: TextStyle(
+                            color: Color(0xFF00E5A8),
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  TextButton.icon(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: const Color(0xFF17171D),
+                        builder: (context) {
+                          return const Padding(
+                            padding: EdgeInsets.all(24),
+                            child: SizedBox(
+                              height: 180,
+                              child: Center(
+                                child: Text(
+                                  'Lyrics will appear here',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.lyrics_outlined,
+                      color: Colors.white70,
+                    ),
+                    label: const Text(
+                      'Lyrics',
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ),
+                ],
               ),
 
               const Spacer(),
 
               SliderTheme(
                 data: SliderThemeData(
-                  activeTrackColor: Colors.white,
+                  activeTrackColor: const Color(0xFFFF375F),
                   inactiveTrackColor: Colors.white24,
                   thumbColor: Colors.white,
                   trackHeight: 4,
                   overlayShape: SliderComponentShape.noOverlay,
                 ),
                 child: Slider(
-                  value: 0.35,
-                  onChanged: (value) {},
+                  value: progress,
+                  onChanged: (value) {
+                    setState(() {
+                      progress = value;
+                    });
+                  },
                 ),
               ),
 
@@ -163,9 +264,15 @@ class PlayerScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.play_arrow_rounded,
+                      onPressed: () {
+                        setState(() {
+                          isPlaying = !isPlaying;
+                        });
+                      },
+                      icon: Icon(
+                        isPlaying
+                            ? Icons.pause_rounded
+                            : Icons.play_arrow_rounded,
                         color: Colors.black,
                         size: 38,
                       ),
@@ -190,7 +297,7 @@ class PlayerScreen extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
             ],
           ),
         ),
